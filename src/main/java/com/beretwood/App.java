@@ -1,13 +1,10 @@
 package com.beretwood;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
+import com.beretwood.util.HibernateUtil;
+
+public class App {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+        HibernateUtil.getSessionFactory();
     }
 }
