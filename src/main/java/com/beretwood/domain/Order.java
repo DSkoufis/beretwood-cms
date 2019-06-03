@@ -10,6 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -28,4 +29,37 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "client_id", nullable = false)
 	private Client recipient;
+
+	public Order() {
+	}
+
+	public Order(Client recipient) {
+		this.recipient = recipient;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public List<Sku> getItems() {
+		return items;
+	}
+
+	public void setItems(Collection<Sku> items) {
+		for (Sku item : items) {
+			this.setItem(item);
+		}
+	}
+
+	public void setItem(Sku item) {
+		this.items.add(item);
+	}
+
+	public Client getRecipient() {
+		return recipient;
+	}
+
+	public void setRecipient(Client recipient) {
+		this.recipient = recipient;
+	}
 }
