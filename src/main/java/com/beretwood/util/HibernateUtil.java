@@ -15,48 +15,48 @@ import java.util.Set;
 
 public class HibernateUtil {
 
-    private static SessionFactory sessionFactory;
+	private static SessionFactory sessionFactory;
 
-    public static SessionFactory getSessionFactory() {
-        if (sessionFactory == null) {
-            try {
-                Configuration configuration = new Configuration();
+	public static SessionFactory getSessionFactory() {
+		if (sessionFactory == null) {
+			try {
+				Configuration configuration = new Configuration();
 
-                configuration.setProperties(getProperties());
-                addClasses(configuration);
+				configuration.setProperties(getProperties());
+				addClasses(configuration);
 
-                ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                        .applySettings(configuration.getProperties())
-                        .build();
-                sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return sessionFactory;
-    }
+				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+						.applySettings(configuration.getProperties())
+						.build();
+				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return sessionFactory;
+	}
 
-    private static Properties getProperties() {
-        Properties settings = new Properties();
-        settings.put(Environment.DRIVER, Driver.class.getName());
-        settings.put(Environment.URL, "jdbc:mysql://localhost:3306/beretwood?useSSL=false");
-        settings.put(Environment.USER, "root");
-        settings.put(Environment.PASS, "");
-        settings.put(Environment.DIALECT, MySQL55Dialect.class.getName());
-        settings.put(Environment.SHOW_SQL, "false");
-        settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-        settings.put(Environment.HBM2DDL_AUTO, "create");
-        return settings;
-    }
+	private static Properties getProperties() {
+		Properties settings = new Properties();
+		settings.put(Environment.DRIVER, Driver.class.getName());
+		settings.put(Environment.URL, "jdbc:mysql://localhost:3306/beretwood?useSSL=false");
+		settings.put(Environment.USER, "root");
+		settings.put(Environment.PASS, "");
+		settings.put(Environment.DIALECT, MySQL55Dialect.class.getName());
+		settings.put(Environment.SHOW_SQL, "false");
+		settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
+		settings.put(Environment.HBM2DDL_AUTO, "create");
+		return settings;
+	}
 
-    private static void addClasses(Configuration config) {
-        for (Class clazz : getAnnotatedClasses()) {
-            config.addAnnotatedClass(clazz);
-        }
-    }
+	private static void addClasses(Configuration config) {
+		for (Class clazz : getAnnotatedClasses()) {
+			config.addAnnotatedClass(clazz);
+		}
+	}
 
-    private static Set<Class<?>> getAnnotatedClasses() {
-        Reflections reflections = new Reflections("com.beretwood.domain");
-        return reflections.getTypesAnnotatedWith(Entity.class);
-    }
+	private static Set<Class<?>> getAnnotatedClasses() {
+		Reflections reflections = new Reflections("com.beretwood.domain");
+		return reflections.getTypesAnnotatedWith(Entity.class);
+	}
 }

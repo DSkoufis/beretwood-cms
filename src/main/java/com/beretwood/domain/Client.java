@@ -13,29 +13,29 @@ import java.util.Set;
 @Table(name = "client")
 public class Client {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id")
+	private Long id;
 
-    @Column(name = "email", nullable = false, unique = true, length = 100)
-    private String email;
+	@Column(name = "email", nullable = false, unique = true, length = 100)
+	private String email;
 
-    @Column(name = "name", length = 25)
-    private String name;
+	@Column(name = "name", length = 25)
+	private String name;
 
-    @Column(name = "surname", length = 25)
-    private String surname;
+	@Column(name = "surname", length = 25)
+	private String surname;
 
-    @Column(name = "address1")
-    private String address1;
+	@Column(name = "address1")
+	private String address1;
 
-    @Column(name = "address2")
-    private String address2;
+	@Column(name = "address2")
+	private String address2;
 
-    @Column(name = "postcode", length = 10)
-    private String postcode;
+	@Column(name = "postcode", length = 10)
+	private String postcode;
 
-    @OneToMany(mappedBy = "recipient")
-    private Set<Order> orders;
+	@OneToMany(mappedBy = "recipient")
+	private Set<Order> orders;
 }

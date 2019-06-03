@@ -11,65 +11,65 @@ import javax.persistence.Table;
 @Table(name = "sku")
 public class Sku {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id")
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@Column(name = "id")
+	private Long id;
 
-    @Column(name = "code", unique = true, updatable = false, length = 20, nullable = false)
-    private String code;
+	@Column(name = "code", unique = true, updatable = false, length = 20, nullable = false)
+	private String code;
 
-    @Column(name = "quantity", nullable = false)
-    private int quantity;
+	@Column(name = "quantity", nullable = false)
+	private int quantity;
 
-    @Column(name = "price", precision = 2)
-    private Double price;
+	@Column(name = "price", precision = 2)
+	private Double price;
 
-    @Column(name = "weight", precision = 1)
-    private Float weight;
+	@Column(name = "weight", precision = 1)
+	private Float weight;
 
-    public Sku() {
-    }
+	public Sku() {
+	}
 
-    public Sku(String code, int quantity, Double price) {
-        this.code = code;
-        this.quantity = quantity;
-        this.price = price;
-    }
+	public Sku(String code, int quantity, Double price) {
+		this.code = code;
+		this.quantity = quantity;
+		this.price = price;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setCode(String code) {
-        this.code = code;
-    }
+	public void setCode(String code) {
+		this.code = code;
+	}
 
-    public int getQuantity() {
-        return quantity;
-    }
+	public int getQuantity() {
+		return quantity;
+	}
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
 
-    public Double getPrice() {
-        return price;
-    }
+	public Double getPrice() {
+		return price;
+	}
 
-    public void setPrice(Double price) {
-        this.price = price;
-    }
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
-    public Float getWeight() {
-        return weight;
-    }
+	public Float getWeight() {
+		return weight;
+	}
 
-    public void setWeight(Float weight) {
-        this.weight = weight;
-    }
+	public void setWeight(Float weight) {
+		this.weight = weight;
+	}
 }
