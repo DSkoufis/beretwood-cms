@@ -8,7 +8,6 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.MySQL55Dialect;
 import org.hibernate.service.ServiceRegistry;
-import org.hibernate.tool.schema.Action;
 import org.reflections.Reflections;
 
 import javax.persistence.Entity;
@@ -25,6 +24,12 @@ public class HibernateUtil {
 
 	public static Session getSession() {
 		return sessionFactory.getCurrentSession();
+	}
+
+	public static void close() {
+		if (!sessionFactory.isClosed()) {
+			sessionFactory.close();
+		}
 	}
 
 	private static SessionFactory loadSessionFactory() {
@@ -53,7 +58,7 @@ public class HibernateUtil {
 		settings.put(Environment.DIALECT, MySQL55Dialect.class.getName());
 		settings.put(Environment.SHOW_SQL, "false");
 		settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-		settings.put(Environment.HBM2DDL_AUTO, Action.CREATE);
+		settings.put(Environment.HBM2DDL_AUTO, "create");
 		return settings;
 	}
 
