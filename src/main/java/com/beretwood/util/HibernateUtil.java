@@ -1,12 +1,14 @@
 package com.beretwood.util;
 
 import com.mysql.cj.jdbc.Driver;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.cfg.Environment;
 import org.hibernate.dialect.MySQL55Dialect;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.tool.schema.Action;
 import org.reflections.Reflections;
 
 import javax.persistence.Entity;
@@ -15,25 +17,31 @@ import java.util.Set;
 
 public class HibernateUtil {
 
-	private static SessionFactory sessionFactory;
+	private static final SessionFactory sessionFactory;
 
-	public static SessionFactory getSessionFactory() {
-		if (sessionFactory == null) {
-			try {
-				Configuration configuration = new Configuration();
+	static {
+		sessionFactory = loadSessionFactory();
+	}
 
-				configuration.setProperties(getProperties());
-				addClasses(configuration);
+	public static Session getSession() {
+		return sessionFactory.getCurrentSession();
+	}
 
-				ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-						.applySettings(configuration.getProperties())
-						.build();
-				sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	private static SessionFactory loadSessionFactory() {
+		try {
+			Configuration configuration = new Configuration();
+
+			configuration.setProperties(getProperties());
+			addClasses(configuration);
+
+			ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
+					.applySettings(configuration.getProperties())
+					.build();
+			return configuration.buildSessionFactory(serviceRegistry);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		return sessionFactory;
+		return null;
 	}
 
 	private static Properties getProperties() {
@@ -45,7 +53,7 @@ public class HibernateUtil {
 		settings.put(Environment.DIALECT, MySQL55Dialect.class.getName());
 		settings.put(Environment.SHOW_SQL, "false");
 		settings.put(Environment.CURRENT_SESSION_CONTEXT_CLASS, "thread");
-		settings.put(Environment.HBM2DDL_AUTO, "create");
+		settings.put(Environment.HBM2DDL_AUTO, Action.CREATE);
 		return settings;
 	}
 
